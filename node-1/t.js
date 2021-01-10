@@ -1,27 +1,3 @@
-const originalJson = {
-  "name": 1,
-  "items": [
-    {
-      "name": 2,
-      "items": [
-        {
-          "name": 3
-        },
-        {
-          "name": 4
-        }
-      ]
-    },
-    {
-      "name": 5,
-      "items": [
-        {
-          "name": 6
-        }
-      ]
-    }
-  ]
-}
 
 // Создание NPM пакета для показа дерева
 // Цель: Написать функцию для показа древовидной структуры.
@@ -51,20 +27,59 @@ const originalJson = {
 // ├── 5
 // │ └── 6
 
-printTree(originalJson)
-
-function printTree(json, prefix = '') {
-  const {name, items} = json;
-  if(items && name !== 1) {
-    console.log(prefix + '├── ' + name);
-    items.forEach(element => {
-      if(!element.items) console.log(prefix + '│ └── ' + element.name);
-      printTree(element, prefix + '     ');
-    });    
-  } else if(items) {
-    console.log(name.toString());
-    items.forEach(element => {
-      printTree(element);
-    }); 
+const json = {
+    "name": {
+      "myKey":"myValue",
+      "myKey1":"myValue1"
+    },
+    "items": "array"
   }
-};
+  
+  const json2 = {
+    "name": {
+      "myKey":"myValue",
+      "myKey1":"myValue1"
+    },
+    "items": [{"name": "SS1"}]
+  }
+  
+  check(json2)
+  
+  function check(json) {
+    let keys = Object.keys(json);
+    for(let i = 0; i < keys.length; i++) {
+      let value = json[keys[i]]
+      console.log(value);
+      
+    }
+  }
+  
+  
+  
+  
+  
+  
+  const originalJson = {
+    "name": 1,
+    "items": [
+      {
+        "name": 2,
+        "items": [
+          {
+            "name": 3
+          },
+          {
+            "name": 4
+          }
+        ]
+      },
+      {
+        "name": 5,
+        "items": [
+          {
+            "name": 6
+          }
+        ]
+      }
+    ]
+  }
