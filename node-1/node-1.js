@@ -21,6 +21,80 @@ const originalJson = {
       ]
     }
   ]
+};
+
+const jsonTest1 = {
+  "name": "asd",
+  "items": [
+    {
+      "name": 2,
+      "items": [
+        {
+          "name": 3
+        },
+        {
+          "name": 4
+        }
+      ]
+    },
+    {
+      "name": 5,
+      "items": [
+        {
+          "name": 6
+        },
+        {
+          "name": 7
+        },
+        {
+          "name": 8
+        }
+      ]
+    },
+    {
+      "name": 9
+    },
+    {
+      "name": 10
+    }
+  ]
+};
+
+const jsonTest2 = {
+  "name": 1,
+  "items": [
+    {
+      "name": 2,
+      "items": [
+        {
+          "name": 3
+        },
+        {
+          "name": 4
+        }
+      ]
+    },
+    {
+      "name": 5,
+      "items": [
+        {
+          "name": 6
+        },
+        {
+          "name": 7
+        },
+        {
+          "name": 8
+        }
+      ]
+    },
+    {
+      "name": 9
+    },
+    {
+      "name": 10
+    }
+  ]
 }
 
 // Создание NPM пакета для показа дерева
@@ -51,20 +125,31 @@ const originalJson = {
 // ├── 5
 // │ └── 6
 
-printTree(originalJson)
+const testData = [originalJson, jsonTest1, jsonTest2];
 
-function printTree(json, prefix = '') {
+const VERTICAL_RIGHT = '├── ';
+const FIRST_CHILD = '└── ';
+const CHILD = '│ └── ';
+
+testData.forEach(element => {
+  printTree(element);
+  console.log('================================');
+});
+
+function printTree(json, whitesapce = '', lvl = 0) {
   const {name, items} = json;
-  if(items && name !== 1) {
-    console.log(prefix + '├── ' + name);
+  if(items && name && lvl > 0) {
+    console.log(whitesapce + '├── ' + name);
     items.forEach(element => {
-      if(!element.items) console.log(prefix + '│ └── ' + element.name);
-      printTree(element, prefix + '     ');
+      if(!element.items) console.log(whitesapce + '│ └── ' + element.name);
+      printTree(element, whitesapce + '     ', lvl+1);
     });    
   } else if(items) {
     console.log(name.toString());
     items.forEach(element => {
-      printTree(element);
+      printTree(element, whitesapce, lvl+1);
     }); 
-  }
+   } else if (lvl <= 1) {
+     console.log('└── ' + name.toString())
+   }
 };
